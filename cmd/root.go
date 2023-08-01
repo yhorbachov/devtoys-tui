@@ -1,17 +1,22 @@
 package cmd
 
 import (
+	"devtoys-tui/ui/toyselection"
 	"fmt"
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
 	"os"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "foo",
-	Short: "bar",
-	Long:  "baz",
+	Use: "toys",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Print("Run function")
+		model := toyselection.NewModel()
+
+		if _, err := tea.NewProgram(model).Run(); err != nil {
+			fmt.Println("Error running program:", err)
+			os.Exit(1)
+		}
 	},
 }
 
@@ -22,5 +27,4 @@ func Execute() {
 	}
 }
 
-func init() {
-}
+func init() {}
